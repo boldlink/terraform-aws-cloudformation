@@ -94,7 +94,7 @@ variable "stackset_administration_role_arn" {
 variable "stackset_name" {
   type        = string
   description = "(Required) Name of the StackSet. The name must be unique in the region where you create your StackSet. The name can contain only alphanumeric characters (case-sensitive) and hyphens. It must start with an alphabetic character and cannot be longer than 128 characters."
-  default     = "boldlink-test-stackset"
+  default     = ""
 }
 
 variable "stackset_capabilities" {
@@ -222,7 +222,7 @@ variable "cloudformation_type_logging_config" {
 variable "cloudformation_type_schema_handler_package" {
   type        = string
   description = "(Required) URL to the S3 bucket containing the extension project package that contains the necessary files for the extension you want to register. Must begin with `s3://` or `https://`. For example, s3://example-bucket/example-object."
-  default     = "s3://sample-bucket"
+  default     = ""
 }
 
 variable "cloudformation_registry_type" {
@@ -234,7 +234,7 @@ variable "cloudformation_registry_type" {
 variable "cloudformation_type_name" {
   type        = string
   description = "(Optional) CloudFormation Type name. For example, `ExampleCompany::ExampleService::ExampleResource`."
-  default     = "null::null::null"
+  default     = null
 }
 
 variable "create_cloudformation_stack_set" {

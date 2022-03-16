@@ -1,6 +1,6 @@
 module "cloudformation_stack" {
   source        = "./../.."
-  stack_name    = "cloudformation-minimal"
+  stack_name    = "cloudformation-minimal-${uuid()}"
   template_body = <<STACK
 {
   "Parameters" : {
