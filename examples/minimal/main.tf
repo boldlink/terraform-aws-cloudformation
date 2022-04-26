@@ -1,5 +1,5 @@
 module "cloudformation_stack" {
-  source        = "./../.."
+  source        = "boldlink/cloudformation/aws"
   stack_name    = "cloudformation-minimal-${uuid()}"
   template_body = <<STACK
 {
