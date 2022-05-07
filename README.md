@@ -1,3 +1,6 @@
+
+[![Build Status](https://github.com/boldlink/terraform-aws-cloudformation/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/boldlink/terraform-aws-cloudformation/actions)
+
 # AWS Cloudformation Terraform module
 
 ## Description
