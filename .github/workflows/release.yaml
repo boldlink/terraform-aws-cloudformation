@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  initial_release:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: create initial release
+        shell: bash
+        run: |
+            sudo apt update
+            sudo apt install -y jq
+            TAG=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/git/refs/tags | jq '.[-1].ref' | tr -d '"' | tr -d 'ref/tags')
+            RELEASES=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases | jq '.[0].tag_name' | tr -d '"')
+            if [[ "${TAG}" != null ]] && [[ "${RELEASES}" == null ]]; then
+              BODY=$(echo "## 🚀 Initial release \n- This is the first release for $repo module.")
+              echo "Howdy! Creating initial release for this Repo"
+              curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases -d '{"tag_name":"'"$TAG"'","target_commitish":"main","name":"'"$TAG"'","body":"'"$BODY"'","draft":false,"prerelease":false,"generate_release_notes":false}'
+            else
+              echo "Nothing to do here, Bye"
+            fi
+  update_release_draft:
+    needs: initial_release
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        with:
+          publish: true
+          prerelease: false # Setting this option to true will have the upcoming release marked as a pre-release/ not production ready. By default we want it to remain as false.
+          config-name: workflows/config/rd-config.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
