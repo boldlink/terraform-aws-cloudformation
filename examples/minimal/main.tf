@@ -1,6 +1,6 @@
 module "cloudformation_stack" {
   source        = "./../../"
-  stack_name    = "cloudformation-minimal"
+  stack_name    = "minimum-cloudformation-stack"
   template_body = <<STACK
 {
   "Parameters" : {
@@ -31,10 +31,5 @@ STACK
   tags = {
     Name        = "Minimal cloudformation stack"
     Environment = "dev"
-  }
-  timeouts = {
-    create = "20m"
-    update = "15m"
-    delete = "10m"
   }
 }

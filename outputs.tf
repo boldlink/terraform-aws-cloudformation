@@ -1,22 +1,19 @@
 output "id" {
-  value       = aws_cloudformation_stack.main.id
+  value       = aws_cloudformation_stack.main.*.id
   description = "A unique identifier of the stack."
 }
 
 output "outputs" {
-  value       = aws_cloudformation_stack.main.outputs
+  value       = aws_cloudformation_stack.main.*.outputs
   description = "A map of outputs from the stack."
 }
 
 output "tags_all" {
-  value       = aws_cloudformation_stack.main.tags_all
+  value       = aws_cloudformation_stack.main.*.tags_all
   description = "A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/docs/providers/aws/index#default_tags-configuration-block)."
 }
 
-/*
-stack set
-*/
-
+## stack set
 output "stackset_arn" {
   value       = aws_cloudformation_stack_set.main.*.arn
   description = "Amazon Resource Name (ARN) of the StackSet."
@@ -37,10 +34,8 @@ output "stackset_tags_all" {
   description = "A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/docs/providers/aws/index#default_tags-configuration-block)."
 }
 
-/*
-stack set instance
-*/
 
+## stack set instance
 output "stackset_instance_id" {
   value       = aws_cloudformation_stack_set_instance.main.*.id
   description = "StackSet name, target AWS account ID, and target AWS region separated by commas (`,`)"
@@ -56,10 +51,7 @@ output "stackset_instance_stack_id" {
   description = "Stack identifier"
 }
 
-/*
-cloudformation type
-*/
-
+## cloudformation type
 output "cloudformation_type_arn" {
   value       = aws_cloudformation_type.main.*.arn
   description = "Optional) Amazon Resource Name (ARN) of the CloudFormation"

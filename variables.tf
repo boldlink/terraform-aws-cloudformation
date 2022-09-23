@@ -1,6 +1,7 @@
 variable "stack_name" {
   type        = string
   description = "(Required) Stack name."
+  default     = ""
 }
 
 variable "template_body" {
@@ -18,7 +19,7 @@ variable "template_url" {
 variable "capabilities" {
   type        = list(string)
   description = "(Optional) A list of capabilities. Valid values: `CAPABILITY_IAM`, `CAPABILITY_NAMED_IAM`, or `CAPABILITY_AUTO_EXPAND`"
-  default     = []
+  default     = ["CAPABILITY_IAM"]
 }
 
 variable "disable_rollback" {
@@ -81,14 +82,11 @@ variable "timeouts" {
   default     = {}
 }
 
-/*
-stack set
-*/
-
+## stack set
 variable "stackset_administration_role_arn" {
   type        = string
-  description = "(Optional) Amazon Resource Number (ARN) of the IAM Role in the administrator account. This must be defined when using the `SELF_MANAGED` permission model."
-  default     = null
+  description = "(Optional) Amazon Resource Number (ARN) of the IAM Role in the administrator account. This must be defined when using the SELF_MANAGED permission model."
+  default     = ""
 }
 
 variable "stackset_name" {
@@ -100,7 +98,7 @@ variable "stackset_name" {
 variable "stackset_capabilities" {
   type        = list(string)
   description = "(Optional) A list of capabilities. Valid values: `CAPABILITY_IAM`, `CAPABILITY_NAMED_IAM`, `CAPABILITY_AUTO_EXPAND`."
-  default     = []
+  default     = ["CAPABILITY_IAM"]
 }
 
 variable "stackset_description" {
@@ -119,18 +117,6 @@ variable "stackset_parameters" {
   type        = map(string)
   description = "(Optional) Key-value map of input parameters for the StackSet template. All template parameters, including those with a `Default`, must be configured or ignored with `lifecycle` configuration block `ignore_changes` argument. All `NoEcho` template parameters must be ignored with the `lifecycle` configuration block `ignore_changes` argument."
   default     = {}
-}
-
-variable "stackset_permission_model" {
-  type        = string
-  description = "(Optional) Describes how the IAM roles required for your StackSet are created. Valid values: `SELF_MANAGED` (default), `SERVICE_MANAGED`."
-  default     = "SELF_MANAGED"
-}
-
-variable "stackset_call_as" {
-  type        = string
-  description = "(Optional) Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. Valid values: `SELF` (default), `DELEGATED_ADMIN`."
-  default     = "SELF"
 }
 
 variable "stackset_tags" {
@@ -157,14 +143,24 @@ variable "stackset_timeouts" {
   default     = {}
 }
 
-/*
-stack set instance
-*/
+variable "stackset_permission_model" {
+  type        = string
+  description = "(Optional) Describes how the IAM roles required for your StackSet are created. Valid values: `SELF_MANAGED` (default), `SERVICE_MANAGED`."
+  default     = "SELF_MANAGED"
+}
 
+variable "stackset_call_as" {
+  type        = string
+  description = "(Optional) Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account. Valid values: `SELF` (default), `DELEGATED_ADMIN`."
+  default     = "SELF"
+}
+
+
+## stack set instance
 variable "stackset_instance_name" {
   type        = string
   description = "(Required) Name of the StackSet."
-  default     = "boldlink-stackset-instance"
+  default     = ""
 }
 
 variable "stackset_instance_account_id" {
@@ -203,10 +199,8 @@ variable "stackset_instance_timeouts" {
   default     = {}
 }
 
-/*
-cloudformation type
-*/
 
+## cloudformation type
 variable "cloudformation_type_execution_role_arn" {
   type        = string
   description = "(Optional) Amazon Resource Name (ARN) of the IAM Role for CloudFormation to assume when invoking the extension. If your extension calls AWS APIs in any of its handlers, you must create an IAM execution role that includes the necessary permissions to call those AWS APIs, and provision that execution role in your account. When CloudFormation needs to invoke the extension handler, CloudFormation assumes this execution role to create a temporary session token, which it then passes to the extension handler, thereby supplying your extension with the appropriate credentials."
@@ -235,18 +229,6 @@ variable "cloudformation_type_name" {
   type        = string
   description = "(Optional) CloudFormation Type name. For example, `ExampleCompany::ExampleService::ExampleResource`."
   default     = null
-}
-
-variable "create_cloudformation_stack_set" {
-  type        = bool
-  description = "Choose whether to create this resource"
-  default     = false
-}
-
-variable "create_cloudformation_stack_set_instance" {
-  type        = bool
-  description = "Choose whether to create this resource"
-  default     = false
 }
 
 variable "create_cloudformation_type" {

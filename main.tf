@@ -1,8 +1,7 @@
-/*
-stack
-*/
 
+## cloudformation stack
 resource "aws_cloudformation_stack" "main" {
+  count              = var.stack_name != "" ? 1 : 0
   name               = var.stack_name
   template_body      = var.template_body
   template_url       = var.template_url
@@ -23,12 +22,10 @@ resource "aws_cloudformation_stack" "main" {
   }
 }
 
-/*
-stack set
-*/
 
+## stack set
 resource "aws_cloudformation_stack_set" "main" {
-  count                   = var.create_cloudformation_stack_set ? 1 : 0
+  count                   = var.stackset_name != "" ? 1 : 0
   administration_role_arn = var.stackset_administration_role_arn
   name                    = var.stackset_name
   parameters              = var.stackset_parameters
@@ -49,12 +46,10 @@ resource "aws_cloudformation_stack_set" "main" {
   }
 }
 
-/*
-stack set instance
-*/
 
+## stack set instance
 resource "aws_cloudformation_stack_set_instance" "main" {
-  count          = var.create_cloudformation_stack_set_instance ? 1 : 0
+  count          = var.stackset_name != "" ? 1 : 0
   stack_set_name = var.stackset_instance_name
   account_id     = var.stackset_instance_account_id
   dynamic "deployment_targets" {
@@ -77,10 +72,8 @@ resource "aws_cloudformation_stack_set_instance" "main" {
   }
 }
 
-/*
-cloudformation type
-*/
 
+## cloudformation type
 resource "aws_cloudformation_type" "main" {
   count                  = var.create_cloudformation_type ? 1 : 0
   schema_handler_package = var.cloudformation_type_schema_handler_package
