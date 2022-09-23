@@ -15,7 +15,10 @@ terraform destroy
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.20.0 |
 
 ## Providers
 
@@ -25,7 +28,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudformation_stack"></a> [cloudformation\_stack](#module\_cloudformation\_stack) | ./../.. | n/a |
+| <a name="module_cloudformation_stack"></a> [cloudformation\_stack](#module\_cloudformation\_stack) | ./../../ | n/a |
 
 ## Resources
 
