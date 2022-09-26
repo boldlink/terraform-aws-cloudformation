@@ -157,13 +157,19 @@ variable "stackset_call_as" {
 
 
 ## stack set instance
-variable "stackset_instance_name" {
+variable "create_stack_set_instance" {
+  type        = bool
+  description = "Choose whether to create this resource"
+  default     = false
+}
+
+variable "instance_stackset_name" {
   type        = string
   description = "(Required) Name of the StackSet."
   default     = ""
 }
 
-variable "stackset_instance_account_id" {
+variable "account_id" {
   type        = string
   description = "(Optional) Target AWS Account ID to create a Stack based on the StackSet. Defaults to current account."
   default     = null
@@ -175,19 +181,19 @@ variable "stackset_instance_deployment_targets" {
   default     = []
 }
 
-variable "stackset_instance_parameter_overrides" {
+variable "parameter_overrides" {
   type        = map(string)
   description = "(Optional) Key-value map of input parameters to override from the StackSet for this Instance."
   default     = {}
 }
 
-variable "stackset_instance_region" {
+variable "region" {
   type        = string
   description = "(Optional) Target AWS Region to create a Stack based on the StackSet. Defaults to current region."
   default     = null
 }
 
-variable "stackset_instance_retain_stack" {
+variable "retain_stack" {
   type        = bool
   description = "(Optional) During Terraform resource destroy, remove Instance from StackSet while keeping the Stack and its associated resources. Must be enabled in Terraform state before destroy operation to take effect. You cannot reassociate a retained Stack or add an existing, saved Stack to a new StackSet. Defaults to `false`."
   default     = false

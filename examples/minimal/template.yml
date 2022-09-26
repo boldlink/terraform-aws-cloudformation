@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+ 'AWS::CloudFormation::Designer': {}
+Resources:
+  ExampleVPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: { "Ref" : "VPCCidr" }
+      Tags: [
+          {"Key": "Name", "Value": "example-stack-vpc"}, {"Key": "Environment", "Value": "examples"}
+        ]
+Parameters:
+  VPCCidr:
+    Type: String
+    Default: '10.0.0.0/16'
+    Description: 'CIDR block for the VPC.'

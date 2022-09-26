@@ -1,35 +1,13 @@
 module "cloudformation_stack" {
   source        = "./../../"
-  stack_name    = "minimum-cloudformation-stack"
-  template_body = <<STACK
-{
-  "Parameters" : {
-    "VPCCidr" : {
-      "Type" : "String",
-      "Default" : "10.0.0.0/16",
-      "Description" : "Enter the CIDR block for the VPC. Default is 10.0.0.0/16."
-    }
-  },
-  "Resources" : {
-    "myVpc": {
-      "Type" : "AWS::EC2::VPC",
-      "Properties" : {
-        "CidrBlock" : { "Ref" : "VPCCidr" },
-        "Tags" : [
-          {"Key": "Name", "Value": "Primary_CF_VPC"}
-        ]
-      }
-    }
-  }
-}
-STACK
-  on_failure    = "ROLLBACK"
+  stack_name    = local.stack_name
+  template_body = templatefile("template.yml", {})
   parameters = {
-    VPCCidr = "10.0.0.0/16"
+    VPCCidr = "172.0.0.0/16"
   }
 
   tags = {
-    Name        = "Minimal cloudformation stack"
-    Environment = "dev"
+    Name        = local.stack_name
+    Environment = "examples"
   }
 }
