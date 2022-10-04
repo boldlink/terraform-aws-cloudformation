@@ -26,7 +26,6 @@ module "stackset_administration_role" {
       policy = data.aws_iam_policy_document.stackset_administration_role_execution_policy.json
     }
   }
-  tags = local.tags
 }
 
 # Stack set instance
@@ -47,7 +46,6 @@ module "stackset_execution_role" {
       policy = data.aws_iam_policy_document.stackset_execution_role_example_policy.json
     }
   }
-  tags = local.tags
   depends_on = [
     module.stackset_administration_role
   ]
