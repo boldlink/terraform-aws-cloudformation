@@ -1,8 +1,7 @@
-/*
-stack
-*/
 
+## cloudformation stack
 resource "aws_cloudformation_stack" "main" {
+  count              = var.stack_name != "" ? 1 : 0
   name               = var.stack_name
   template_body      = var.template_body
   template_url       = var.template_url
@@ -23,12 +22,10 @@ resource "aws_cloudformation_stack" "main" {
   }
 }
 
-/*
-stack set
-*/
 
+## stack set
 resource "aws_cloudformation_stack_set" "main" {
-  count                   = var.create_cloudformation_stack_set ? 1 : 0
+  count                   = var.stackset_name != "" ? 1 : 0
   administration_role_arn = var.stackset_administration_role_arn
   name                    = var.stackset_name
   parameters              = var.stackset_parameters
@@ -49,23 +46,21 @@ resource "aws_cloudformation_stack_set" "main" {
   }
 }
 
-/*
-stack set instance
-*/
 
+## stack set instance
 resource "aws_cloudformation_stack_set_instance" "main" {
-  count          = var.create_cloudformation_stack_set_instance ? 1 : 0
-  stack_set_name = var.stackset_instance_name
-  account_id     = var.stackset_instance_account_id
+  count          = var.create_stack_set_instance ? 1 : 0
+  stack_set_name = var.instance_stackset_name
+  account_id     = var.account_id
   dynamic "deployment_targets" {
     for_each = var.stackset_instance_deployment_targets
     content {
       organizational_unit_ids = lookup(deployment_targets.value, "organizational_unit_ids", [])
     }
   }
-  parameter_overrides = var.stackset_instance_parameter_overrides
-  region              = var.stackset_instance_region
-  retain_stack        = var.stackset_instance_retain_stack
+  parameter_overrides = var.parameter_overrides
+  region              = var.region
+  retain_stack        = var.retain_stack
   timeouts {
     create = lookup(var.stackset_instance_timeouts, "create", "30m")
     update = lookup(var.stackset_instance_timeouts, "update", "30m")
@@ -77,10 +72,8 @@ resource "aws_cloudformation_stack_set_instance" "main" {
   }
 }
 
-/*
-cloudformation type
-*/
 
+## cloudformation type
 resource "aws_cloudformation_type" "main" {
   count                  = var.create_cloudformation_type ? 1 : 0
   schema_handler_package = var.cloudformation_type_schema_handler_package
