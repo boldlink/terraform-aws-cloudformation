@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 - feat: showcase cloudformation type usage
-- feat: use stackset name if stackset is being created by the module.
+- feat: optional stackset usage (external or in-module) in stackset instance resource
 
 ## [1.2.0] - 2022-09-26
 ### Description
