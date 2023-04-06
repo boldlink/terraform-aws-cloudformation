@@ -1,4 +1,5 @@
-name: pre-commit
+name: auto-badge
+
 on:
   push:
 
@@ -18,10 +19,10 @@ on:
 permissions: read-all
 
 jobs:
-  pre-commit:
+  auto-badge:
     permissions:
       contents: write
-    uses: boldlink/terraform-module-support/.github/workflows/pre-commit.yaml@main
+    uses: boldlink/terraform-module-support/.github/workflows/auto-badge.yaml@main
     secrets:
       AUTOMATION_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
       SLACK_WEBHOOK : ${{secrets.SLACK_WEBHOOK}}
