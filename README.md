@@ -4,6 +4,7 @@
 [![Build Status](https://github.com/boldlink/terraform-aws-cloudformation/actions/workflows/release.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-cloudformation/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-cloudformation/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-cloudformation/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-cloudformation/actions/workflows/pr-labeler.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-cloudformation/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-cloudformation/actions/workflows/module-examples-tests.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-cloudformation/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-cloudformation/actions/workflows/checkov.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-cloudformation/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-cloudformation/actions/workflows/auto-badge.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-cloudformation/actions)
 
@@ -88,7 +89,7 @@ Parameters:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.62.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.63.0 |
 
 ## Modules
 
