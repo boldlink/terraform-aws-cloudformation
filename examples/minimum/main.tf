@@ -1,4 +1,5 @@
 module "cloudformation_stack" {
+  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
   source        = "./../../"
   stack_name    = local.stack_name
   template_body = templatefile("template.yml", {})
