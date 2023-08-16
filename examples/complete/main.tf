@@ -1,5 +1,6 @@
 # Stack set
 module "stack_set" {
+  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
   source                           = "./../../"
   stackset_administration_role_arn = module.stackset_administration_role.arn
   stackset_name                    = local.stackset_name
@@ -17,6 +18,7 @@ module "stack_set" {
 }
 
 module "stackset_administration_role" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
   source             = "boldlink/iam-role/aws"
   version            = "1.1.0"
   name               = "${local.stackset_name}-administration-role"
@@ -30,6 +32,7 @@ module "stackset_administration_role" {
 
 # Stack set instance
 module "stackset_instance" {
+  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
   source                    = "./../../"
   region                    = "eu-west-2"
   create_stack_set_instance = true
@@ -37,6 +40,7 @@ module "stackset_instance" {
 }
 
 module "stackset_execution_role" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
   source             = "boldlink/iam-role/aws"
   version            = "1.1.0"
   name               = "${local.stackset_name}-execution-role"
