@@ -1,6 +1,6 @@
 # Stack set
 module "stack_set" {
-  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"  
+  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
   source                           = "./../../"
   stackset_administration_role_arn = module.stackset_administration_role.arn
   stackset_name                    = local.stackset_name
