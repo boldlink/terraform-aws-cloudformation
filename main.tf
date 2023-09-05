@@ -35,7 +35,7 @@ resource "aws_cloudformation_stack_set" "main" {
   execution_role_name     = var.stackset_execution_role_name
   permission_model        = var.stackset_permission_model
   call_as                 = var.stackset_call_as
-  tags                    = var.stackset_tags
+  tags                    = var.tags
   template_url            = var.stackset_template_url
   timeouts {
     update = lookup(var.stackset_timeouts, "update", "30m")
