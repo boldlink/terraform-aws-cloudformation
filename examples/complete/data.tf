@@ -32,17 +32,28 @@ data "aws_iam_policy_document" "stackset_execution_role_assume_role_policy" {
 }
 
 data "aws_iam_policy_document" "stackset_execution_role_example_policy" {
-  #checkov:skip=CKV_AWS_356  "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
-  #checkov:skip=CKV_AWS_108 "Ensure IAM policies does not allow data exfiltration"
-  #checkov:skip=CKV_AWS_109 "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
   #checkov:skip=CKV_AWS_111 "Ensure IAM policies does not allow write access without constraints"
-  #checkov:skip=CKV_AWS_107 "Ensure IAM policies does not allow credentials exposure"
+  #checkov:skip=CKV_AWS_356  "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
   statement {
     actions = [
-      "cloudformation:*",
-      "s3:*",
-      "sns:*",
-      "ec2:*",
+      "cloudformation:CreateStack",
+      "cloudformation:DeleteStack",
+      "cloudformation:DescribeStacks",
+      "cloudformation:DescribeStackEvents",
+      "cloudformation:DescribeStackResource",
+      "cloudformation:DescribeStackResources",
+      "cloudformation:GetTemplate",
+      "cloudformation:UpdateStack",
+      "cloudformation:CreateChangeSet",
+      "ec2:CreateVpc",
+      "ec2:DeleteVpc",
+      "ec2:DescribeVpcs",
+      "ec2:AttachInternetGateway",
+      "ec2:CreateInternetGateway",
+      "ec2:DeleteInternetGateway",
+      "ec2:DescribeInternetGateways",
+      "ec2:CreateTags",
+      "ec2:ModifyVpcAttribute"
     ]
 
     effect    = "Allow"
