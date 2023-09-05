@@ -7,8 +7,5 @@ module "cloudformation_stack" {
     VPCCidr = "172.0.0.0/16"
   }
 
-  tags = {
-    Name        = local.stack_name
-    Environment = "examples"
-  }
+  tags = local.tags
 }

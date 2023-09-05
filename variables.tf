@@ -119,12 +119,6 @@ variable "stackset_parameters" {
   default     = {}
 }
 
-variable "stackset_tags" {
-  type        = map(string)
-  description = "(Optional) Key-value map of tags to associate with this StackSet and the Stacks created from it. AWS CloudFormation also propagates these tags to supported resources that are created in the Stacks. A maximum number of 50 tags can be specified. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-  default     = {}
-}
-
 variable "stackset_template_body" {
   type        = string
   description = "(Optional) String containing the CloudFormation template body. Maximum size: 51,200 bytes. Conflicts with `template_url`."
