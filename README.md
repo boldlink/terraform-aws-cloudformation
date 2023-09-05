@@ -90,7 +90,7 @@ Parameters:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.12.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.31.0 |
 
 ## Modules
 
@@ -140,7 +140,6 @@ No modules.
 | <a name="input_stackset_name"></a> [stackset\_name](#input\_stackset\_name) | (Required) Name of the StackSet. The name must be unique in the region where you create your StackSet. The name can contain only alphanumeric characters (case-sensitive) and hyphens. It must start with an alphabetic character and cannot be longer than 128 characters. | `string` | `""` | no |
 | <a name="input_stackset_parameters"></a> [stackset\_parameters](#input\_stackset\_parameters) | (Optional) Key-value map of input parameters for the StackSet template. All template parameters, including those with a `Default`, must be configured or ignored with `lifecycle` configuration block `ignore_changes` argument. All `NoEcho` template parameters must be ignored with the `lifecycle` configuration block `ignore_changes` argument. | `map(string)` | `{}` | no |
 | <a name="input_stackset_permission_model"></a> [stackset\_permission\_model](#input\_stackset\_permission\_model) | (Optional) Describes how the IAM roles required for your StackSet are created. Valid values: `SELF_MANAGED` (default), `SERVICE_MANAGED`. | `string` | `"SELF_MANAGED"` | no |
-| <a name="input_stackset_tags"></a> [stackset\_tags](#input\_stackset\_tags) | (Optional) Key-value map of tags to associate with this StackSet and the Stacks created from it. AWS CloudFormation also propagates these tags to supported resources that are created in the Stacks. A maximum number of 50 tags can be specified. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level. | `map(string)` | `{}` | no |
 | <a name="input_stackset_template_body"></a> [stackset\_template\_body](#input\_stackset\_template\_body) | (Optional) String containing the CloudFormation template body. Maximum size: 51,200 bytes. Conflicts with `template_url`. | `string` | `null` | no |
 | <a name="input_stackset_template_url"></a> [stackset\_template\_url](#input\_stackset\_template\_url) | (Optional) String containing the location of a file containing the CloudFormation template body. The URL must point to a template that is located in an Amazon S3 bucket. Maximum location file size: 460,800 bytes. Conflicts with `template_body`. | `string` | `null` | no |
 | <a name="input_stackset_timeouts"></a> [stackset\_timeouts](#input\_stackset\_timeouts) | Configuration block specifying how long to wait for a StackSet to be updated | `map(string)` | `{}` | no |
