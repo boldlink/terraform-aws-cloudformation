@@ -76,20 +76,3 @@ data "aws_iam_policy_document" "stackset_execution_role_example_policy" {
     resources = ["*"]
   }
 }
-
-data "aws_iam_policy_document" "s3_bucket" {
-  version = "2012-10-17"
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:PutObject*",
-      "s3:ListBucket",
-      "s3:GetObject*",
-      "s3:DeleteObject*",
-      "s3:GetBucketLocation"
-    ]
-    resources = [
-      "*"
-    ]
-  }
-}
