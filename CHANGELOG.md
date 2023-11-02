@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: CKV_AWS_356  "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
 - fix: CKV_AWS_111 "Ensure IAM policies does not allow write access without constraints"
 
+## [1.1.3] - 2023-11-02
+- added cloudformation stack example
+- added a Cloudformation stack with template url and policy url stored in an s3 bucket
+- removed aws_cloudformation_type resource from the module
+
 ## [1.1.2] - 2023-09-05
   - fix: CKV_AWS_109 "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
   - fix: CKV_AWS_107 "Ensure IAM policies does not allow credentials exposure"

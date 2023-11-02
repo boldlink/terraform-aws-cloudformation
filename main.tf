@@ -71,24 +71,3 @@ resource "aws_cloudformation_stack_set_instance" "main" {
     create_before_destroy = true
   }
 }
-
-
-## cloudformation type
-resource "aws_cloudformation_type" "main" {
-  count                  = var.create_cloudformation_type ? 1 : 0
-  schema_handler_package = var.cloudformation_type_schema_handler_package
-  execution_role_arn     = var.cloudformation_type_execution_role_arn
-  type                   = var.cloudformation_registry_type
-  type_name              = var.cloudformation_type_name
-  dynamic "logging_config" {
-    for_each = var.cloudformation_type_logging_config
-    content {
-      log_group_name = logging_config.value.log_group_name
-      log_role_arn   = logging_config.value.log_role_arn
-    }
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}

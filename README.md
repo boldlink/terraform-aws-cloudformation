@@ -90,7 +90,7 @@ Parameters:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.15.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.31.0 |
 
 ## Modules
 
@@ -103,7 +103,6 @@ No modules.
 | [aws_cloudformation_stack.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
 | [aws_cloudformation_stack_set.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack_set) | resource |
 | [aws_cloudformation_stack_set_instance.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack_set_instance) | resource |
-| [aws_cloudformation_type.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_type) | resource |
 
 ## Inputs
 
@@ -111,12 +110,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | (Optional) Target AWS Account ID to create a Stack based on the StackSet. Defaults to current account. | `string` | `null` | no |
 | <a name="input_capabilities"></a> [capabilities](#input\_capabilities) | (Optional) A list of capabilities. Valid values: `CAPABILITY_IAM`, `CAPABILITY_NAMED_IAM`, or `CAPABILITY_AUTO_EXPAND` | `list(string)` | <pre>[<br>  "CAPABILITY_IAM"<br>]</pre> | no |
-| <a name="input_cloudformation_registry_type"></a> [cloudformation\_registry\_type](#input\_cloudformation\_registry\_type) | (Optional) CloudFormation Registry Type. For example, `RESOURCE` or `MODULE`. | `string` | `null` | no |
-| <a name="input_cloudformation_type_execution_role_arn"></a> [cloudformation\_type\_execution\_role\_arn](#input\_cloudformation\_type\_execution\_role\_arn) | (Optional) Amazon Resource Name (ARN) of the IAM Role for CloudFormation to assume when invoking the extension. If your extension calls AWS APIs in any of its handlers, you must create an IAM execution role that includes the necessary permissions to call those AWS APIs, and provision that execution role in your account. When CloudFormation needs to invoke the extension handler, CloudFormation assumes this execution role to create a temporary session token, which it then passes to the extension handler, thereby supplying your extension with the appropriate credentials. | `string` | `null` | no |
-| <a name="input_cloudformation_type_logging_config"></a> [cloudformation\_type\_logging\_config](#input\_cloudformation\_type\_logging\_config) | (Optional) Configuration block containing logging configuration. | `map(string)` | `{}` | no |
-| <a name="input_cloudformation_type_name"></a> [cloudformation\_type\_name](#input\_cloudformation\_type\_name) | (Optional) CloudFormation Type name. For example, `ExampleCompany::ExampleService::ExampleResource`. | `string` | `null` | no |
-| <a name="input_cloudformation_type_schema_handler_package"></a> [cloudformation\_type\_schema\_handler\_package](#input\_cloudformation\_type\_schema\_handler\_package) | (Required) URL to the S3 bucket containing the extension project package that contains the necessary files for the extension you want to register. Must begin with `s3://` or `https://`. For example, s3://example-bucket/example-object. | `string` | `""` | no |
-| <a name="input_create_cloudformation_type"></a> [create\_cloudformation\_type](#input\_create\_cloudformation\_type) | Choose whether to create this resource | `bool` | `false` | no |
 | <a name="input_create_stack_set_instance"></a> [create\_stack\_set\_instance](#input\_create\_stack\_set\_instance) | Choose whether to create this resource | `bool` | `false` | no |
 | <a name="input_disable_rollback"></a> [disable\_rollback](#input\_disable\_rollback) | (Optional) Set to true to disable rollback of the stack if stack creation failed. Conflicts with `on_failure`. | `string` | `null` | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | (Optional) The ARN of an IAM role that AWS CloudFormation assumes to create the stack. If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials. | `string` | `null` | no |
@@ -153,17 +146,6 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cloudformation_type_arn"></a> [cloudformation\_type\_arn](#output\_cloudformation\_type\_arn) | Optional) Amazon Resource Name (ARN) of the CloudFormation |
-| <a name="output_cloudformation_type_default_version_id"></a> [cloudformation\_type\_default\_version\_id](#output\_cloudformation\_type\_default\_version\_id) | Identifier of the CloudFormation Type default version. |
-| <a name="output_cloudformation_type_deprecated_status"></a> [cloudformation\_type\_deprecated\_status](#output\_cloudformation\_type\_deprecated\_status) | Deprecation status of the version. |
-| <a name="output_cloudformation_type_description"></a> [cloudformation\_type\_description](#output\_cloudformation\_type\_description) | Description of the version. |
-| <a name="output_cloudformation_type_documentation_url"></a> [cloudformation\_type\_documentation\_url](#output\_cloudformation\_type\_documentation\_url) | URL of the documentation for the CloudFormation Type. |
-| <a name="output_cloudformation_type_is_default_version"></a> [cloudformation\_type\_is\_default\_version](#output\_cloudformation\_type\_is\_default\_version) | Whether the CloudFormation Type version is the default version. |
-| <a name="output_cloudformation_type_provisioning_type"></a> [cloudformation\_type\_provisioning\_type](#output\_cloudformation\_type\_provisioning\_type) | Provisioning behavior of the CloudFormation Type. |
-| <a name="output_cloudformation_type_schema"></a> [cloudformation\_type\_schema](#output\_cloudformation\_type\_schema) | JSON document of the CloudFormation Type schema. |
-| <a name="output_cloudformation_type_source_url"></a> [cloudformation\_type\_source\_url](#output\_cloudformation\_type\_source\_url) | URL of the source code for the CloudFormation Type. |
-| <a name="output_cloudformation_type_version_id"></a> [cloudformation\_type\_version\_id](#output\_cloudformation\_type\_version\_id) | (Optional) Identifier of the CloudFormation Type version. |
-| <a name="output_cloudformation_type_visibility"></a> [cloudformation\_type\_visibility](#output\_cloudformation\_type\_visibility) | Scope of the CloudFormation Type. |
 | <a name="output_id"></a> [id](#output\_id) | A unique identifier of the stack. |
 | <a name="output_outputs"></a> [outputs](#output\_outputs) | A map of outputs from the stack. |
 | <a name="output_stackset_arn"></a> [stackset\_arn](#output\_stackset\_arn) | Amazon Resource Name (ARN) of the StackSet. |
