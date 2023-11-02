@@ -21,18 +21,26 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.20.0 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | >=2.4.0 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | >=3.2.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.15.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.33.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | 2.4.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.2.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_cloudformation_s3_bucket"></a> [cloudformation\_s3\_bucket](#module\_cloudformation\_s3\_bucket) | boldlink/s3/aws | 2.3.1 |
+| <a name="module_stack"></a> [stack](#module\_stack) | ./../../ | n/a |
+| <a name="module_stack_role"></a> [stack\_role](#module\_stack\_role) | boldlink/iam-role/aws | 1.1.1 |
 | <a name="module_stack_set"></a> [stack\_set](#module\_stack\_set) | ./../../ | n/a |
+| <a name="module_stack_with_s3"></a> [stack\_with\_s3](#module\_stack\_with\_s3) | ./../../ | n/a |
 | <a name="module_stackset_administration_role"></a> [stackset\_administration\_role](#module\_stackset\_administration\_role) | boldlink/iam-role/aws | 1.1.0 |
 | <a name="module_stackset_execution_role"></a> [stackset\_execution\_role](#module\_stackset\_execution\_role) | boldlink/iam-role/aws | 1.1.0 |
 | <a name="module_stackset_instance"></a> [stackset\_instance](#module\_stackset\_instance) | ./../../ | n/a |
@@ -41,15 +49,19 @@
 
 | Name | Type |
 |------|------|
+| [null_resource.s3](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [aws_iam_policy_document.stack_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.stackset_administration_role_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.stackset_administration_role_execution_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.stackset_execution_role_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.stackset_execution_role_example_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [local_file.json_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_name"></a> [name](#input\_name) | Stack name. | `string` | `"Example-stack"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to the created resources | `map(string)` | <pre>{<br>  "Department": "DevOps",<br>  "Environment": "examples",<br>  "LayerId": "cExample",<br>  "LayerName": "cExample",<br>  "Owner": "Boldlink",<br>  "Project": "Examples",<br>  "user::CostCenter": "terraform-registry"<br>}</pre> | no |
 
 ## Outputs

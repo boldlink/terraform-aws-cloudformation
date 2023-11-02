@@ -1,5 +1,20 @@
+data "local_file" "json_file" {
+  filename = "${path.module}/files/policy.json"
+}
 
 data "aws_iam_policy_document" "stackset_administration_role_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
+
+    principals {
+      identifiers = ["cloudformation.amazonaws.com"]
+      type        = "Service"
+    }
+  }
+}
+
+data "aws_iam_policy_document" "stack_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
     effect  = "Allow"
@@ -15,7 +30,7 @@ data "aws_iam_policy_document" "stackset_administration_role_execution_policy" {
   statement {
     actions   = ["sts:AssumeRole"]
     effect    = "Allow"
-    resources = ["arn:aws:iam::*:role/${local.stackset_name}-execution-role"]
+    resources = ["arn:aws:iam::*:role/${var.name}set-execution-role"]
   }
 }
 
@@ -30,6 +45,7 @@ data "aws_iam_policy_document" "stackset_execution_role_assume_role_policy" {
     }
   }
 }
+
 
 data "aws_iam_policy_document" "stackset_execution_role_example_policy" {
   #checkov:skip=CKV_AWS_111 "Ensure IAM policies does not allow write access without constraints"
@@ -58,5 +74,22 @@ data "aws_iam_policy_document" "stackset_execution_role_example_policy" {
 
     effect    = "Allow"
     resources = ["*"]
+  }
+}
+
+data "aws_iam_policy_document" "s3_bucket" {
+  version = "2012-10-17"
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject*",
+      "s3:ListBucket",
+      "s3:GetObject*",
+      "s3:DeleteObject*",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "*"
+    ]
   }
 }
