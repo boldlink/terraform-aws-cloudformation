@@ -37,6 +37,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_cloudformation_s3_bucket"></a> [cloudformation\_s3\_bucket](#module\_cloudformation\_s3\_bucket) | boldlink/s3/aws | 2.3.1 |
+| <a name="module_sns_topic"></a> [sns\_topic](#module\_sns\_topic) | boldlink/sns/aws | 1.1.2 |
 | <a name="module_stack"></a> [stack](#module\_stack) | ./../../ | n/a |
 | <a name="module_stack_role"></a> [stack\_role](#module\_stack\_role) | boldlink/iam-role/aws | 1.1.1 |
 | <a name="module_stack_set"></a> [stack\_set](#module\_stack\_set) | ./../../ | n/a |

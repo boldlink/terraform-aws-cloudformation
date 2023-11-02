@@ -1,3 +1,11 @@
+module "sns_topic" {
+  source  = "boldlink/sns/aws"
+  version = "1.1.2"
+  name    = "${var.name}-sns"
+
+  tags = merge({ Name = "${var.name}-sns" }, var.tags)
+}
+
 ########################################################################
 # Cloudformation stack with template body, policy body and iam_role_arn
 ########################################################################
@@ -13,6 +21,7 @@ module "stack_role" {
 }
 
 module "stack" {
+  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
   source       = "./../../"
   stack_name   = var.name
   capabilities = ["CAPABILITY_IAM"]
@@ -32,7 +41,6 @@ module "stack" {
   }
 }
 
-
 ###############################################################################
 # Cloudformation stack with template url and policy url stored in an s3 bucket
 ###############################################################################
@@ -51,8 +59,9 @@ resource "null_resource" "s3" {
 }
 
 module "stack_with_s3" {
-  source     = "./../../"
-  stack_name = "${var.name}-with-s3"
+  source            = "./../../"
+  stack_name        = "${var.name}-with-s3"
+  notification_arns = [module.sns_topic.arn]
   parameters = {
     VPCCidr = "172.10.0.0/16"
     Name    = "${var.name}-with-s3"
@@ -67,7 +76,6 @@ module "stack_with_s3" {
 # Stack set
 ##############
 module "stackset_administration_role" {
-  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
   source             = "boldlink/iam-role/aws"
   version            = "1.1.0"
   name               = "${var.name}set-administration-role"
@@ -81,13 +89,14 @@ module "stackset_administration_role" {
 }
 
 module "stack_set" {
-  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
+
   source                           = "./../../"
   stackset_administration_role_arn = module.stackset_administration_role.arn
   stackset_name                    = "${var.name}set"
   stackset_execution_role_name     = "${var.name}set-execution-role"
   stackset_permission_model        = "SELF_MANAGED"
   stackset_call_as                 = "SELF"
+  notification_arns                = [module.sns_topic.arn]
 
   stackset_parameters = {
     VPCCidr = "172.0.0.0/16"
