@@ -28,7 +28,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.33.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.23.1 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.4.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.1 |
 
