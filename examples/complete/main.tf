@@ -1,3 +1,4 @@
+
 module "sns_topic" {
   source  = "boldlink/sns/aws"
   version = "1.1.2"
@@ -66,11 +67,13 @@ module "stack_with_s3" {
     VPCCidr = "172.10.0.0/16"
     Name    = "${var.name}-with-s3"
   }
+  tags         = merge({ Name = "${var.name}-with-s3" }, var.tags)
   template_url = "https://${module.cloudformation_s3_bucket.bucket_regional_domain_name}/template.yml"
   policy_url   = "https://${module.cloudformation_s3_bucket.bucket_regional_domain_name}/policy.json"
 
   depends_on = [module.cloudformation_s3_bucket, null_resource.s3]
 }
+
 
 ##############
 # Stack set
@@ -89,7 +92,6 @@ module "stackset_administration_role" {
 }
 
 module "stack_set" {
-
   source                           = "./../../"
   stackset_administration_role_arn = module.stackset_administration_role.arn
   stackset_name                    = "${var.name}set"
@@ -140,8 +142,10 @@ module "stackset_instance" {
   create_stack_set_instance = true
   instance_stackset_name    = module.stack_set.stackset_id[0]
   retain_stack              = false
+  tags                      = merge({ Name = "${var.name}set-instance" }, var.tags)
   parameter_overrides = {
     VPCCidr = "172.20.0.0/16"
+    Name = "${var.name}set-instance"
   }
   stackset_instance_timeouts = {
     update = "10m"

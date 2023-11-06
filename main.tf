@@ -52,12 +52,12 @@ resource "aws_cloudformation_stack_set_instance" "main" {
   count          = var.create_stack_set_instance ? 1 : 0
   stack_set_name = var.instance_stackset_name
   account_id     = var.account_id
-  dynamic "deployment_targets" {
-    for_each = var.stackset_instance_deployment_targets
-    content {
-      organizational_unit_ids = lookup(deployment_targets.value, "organizational_unit_ids", [])
-    }
+  # Commented out deployment_targets since auto_deployment feature is required for SERVICE_MANAGED permission model.The feature will be added in subsequent releases.
+  /*
+  deployment_targets {
+      organizational_unit_ids = var.organizational_unit_ids
   }
+  */
   parameter_overrides = var.parameter_overrides
   region              = var.region
   retain_stack        = var.retain_stack

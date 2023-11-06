@@ -5,17 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- feat: showcase cloudformation type usage
-- feat: optional stackset usage (external or in-module) in stackset instance resource
 - fix: CKV_AWS_124 "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
 - fix: CKV_TF_1 "Ensure Terraform module sources use a commit hash"
 - fix: CKV_AWS_356  "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
 - fix: CKV_AWS_111 "Ensure IAM policies does not allow write access without constraints"
+- feat: stackset deployed to an organization unit
 
 ## [1.1.3] - 2023-11-02
 - added cloudformation stack example
 - added a Cloudformation stack with template url and policy url stored in an s3 bucket
 - removed aws_cloudformation_type resource from the module
+- Commented out deployment_targets since auto_deployment attribute is required for SERVICE_MANAGED permission model.The feature will be added in subsequent releases.
 
 ## [1.1.2] - 2023-09-05
   - fix: CKV_AWS_109 "Ensure IAM policies does not allow permissions management / resource exposure without constraints"

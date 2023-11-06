@@ -169,11 +169,13 @@ variable "account_id" {
   default     = null
 }
 
-variable "stackset_instance_deployment_targets" {
+/*
+variable "organizational_unit_ids" {
   type        = list(string)
-  description = "(Optional) The AWS Organizations accounts to which StackSets deploys. StackSets doesn't deploy stack instances to the organization management account, even if the organization management account is in your organization or in an OU in your organization. Drift detection is not possible for this argument."
+  description = "(Optional) The organization root ID or organizational unit (OU) IDs to which StackSets deploys."
   default     = []
 }
+*/
 
 variable "parameter_overrides" {
   type        = map(string)
