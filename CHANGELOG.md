@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: CKV_AWS_111 "Ensure IAM policies does not allow write access without constraints"
 - feat: stackset deployed to an organization unit
 
-## [1.1.3] - 2023-11-02
+## [1.1.3] - 2023-11-06
 - added cloudformation stack example
 - added a Cloudformation stack with template url and policy url stored in an s3 bucket
 - removed aws_cloudformation_type resource from the module
@@ -41,8 +41,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: initial module code
 - feat: minimum example usage
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-cloudformation/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-cloudformation/compare/1.1.3...HEAD
 
+[1.1.3]: https://github.com/boldlink/terraform-aws-cloudformation/releases/tag/1.1.3
 [1.1.2]: https://github.com/boldlink/terraform-aws-cloudformation/releases/tag/1.1.2
 [1.1.1]: https://github.com/boldlink/terraform-aws-cloudformation/releases/tag/1.1.1
 [1.1.0]: https://github.com/boldlink/terraform-aws-cloudformation/releases/tag/1.1.0

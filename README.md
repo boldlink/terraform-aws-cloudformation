@@ -26,7 +26,7 @@ Examples available [`here`](github.com/boldlink/terraform-aws-cloudformation/tre
 ```console
 module "minimum" {
   source  = "boldlink/cloudformation/aws"
-  version = "1.2.0"
+  version = "<insert_latest_version_here>"
   stack_name    = local.stack_name
   template_body = templatefile("template.yml", {})
   parameters = {
