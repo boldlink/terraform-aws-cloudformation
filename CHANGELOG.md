@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added cloudformation stack example
 - added a Cloudformation stack with template url and policy url stored in an s3 bucket
 - removed aws_cloudformation_type resource from the module
-- Commented out deployment_targets since auto_deployment attribute is required for SERVICE_MANAGED permission model.The feature will be added in subsequent releases.
+- Commented out deployment_targets since auto_deployment feature is required for SERVICE_MANAGED permission model.The feature will be added in subsequent releases.
 
 ## [1.1.2] - 2023-09-05
   - fix: CKV_AWS_109 "Ensure IAM policies does not allow permissions management / resource exposure without constraints"

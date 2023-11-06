@@ -145,7 +145,7 @@ module "stackset_instance" {
   tags                      = merge({ Name = "${var.name}set-instance" }, var.tags)
   parameter_overrides = {
     VPCCidr = "172.20.0.0/16"
-    Name = "${var.name}set-instance"
+    Name    = "${var.name}set-instance"
   }
   stackset_instance_timeouts = {
     update = "10m"
