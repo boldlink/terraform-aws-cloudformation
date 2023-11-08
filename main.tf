@@ -6,11 +6,11 @@ resource "aws_cloudformation_stack" "main" {
   template_body      = var.template_body
   template_url       = var.template_url
   capabilities       = var.capabilities
-  disable_rollback   = var.on_failure == null ? var.disable_rollback : null
+  disable_rollback   = var.disable_rollback
   notification_arns  = var.notification_arns
   on_failure         = var.disable_rollback == null ? var.on_failure : null
   parameters         = var.parameters
-  policy_body        = var.policy_url == null ? var.policy_body : null
+  policy_body        = var.policy_body
   policy_url         = var.policy_body == null ? var.policy_url : null
   tags               = var.tags
   iam_role_arn       = var.iam_role_arn
@@ -52,12 +52,12 @@ resource "aws_cloudformation_stack_set_instance" "main" {
   count          = var.create_stack_set_instance ? 1 : 0
   stack_set_name = var.instance_stackset_name
   account_id     = var.account_id
-  dynamic "deployment_targets" {
-    for_each = var.stackset_instance_deployment_targets
-    content {
-      organizational_unit_ids = lookup(deployment_targets.value, "organizational_unit_ids", [])
-    }
+  # Commented out deployment_targets since auto_deployment feature is required for SERVICE_MANAGED permission model.The feature will be added in subsequent releases.
+  /*
+  deployment_targets {
+      organizational_unit_ids = var.organizational_unit_ids
   }
+  */
   parameter_overrides = var.parameter_overrides
   region              = var.region
   retain_stack        = var.retain_stack
@@ -65,27 +65,6 @@ resource "aws_cloudformation_stack_set_instance" "main" {
     create = lookup(var.stackset_instance_timeouts, "create", "30m")
     update = lookup(var.stackset_instance_timeouts, "update", "30m")
     delete = lookup(var.stackset_instance_timeouts, "delete", "30m")
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-
-## cloudformation type
-resource "aws_cloudformation_type" "main" {
-  count                  = var.create_cloudformation_type ? 1 : 0
-  schema_handler_package = var.cloudformation_type_schema_handler_package
-  execution_role_arn     = var.cloudformation_type_execution_role_arn
-  type                   = var.cloudformation_registry_type
-  type_name              = var.cloudformation_type_name
-  dynamic "logging_config" {
-    for_each = var.cloudformation_type_logging_config
-    content {
-      log_group_name = logging_config.value.log_group_name
-      log_role_arn   = logging_config.value.log_role_arn
-    }
   }
 
   lifecycle {

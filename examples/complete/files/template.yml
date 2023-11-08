@@ -7,10 +7,14 @@ Resources:
     Properties:
       CidrBlock: { "Ref" : "VPCCidr" }
       Tags: [
-          {"Key": "Name", "Value": "example-stackset-vpc"}, {"Key": "Environment", "Value": "examples"}
+          {"Key": "Name", "Value": { "Ref" : "Name" }}, {"Key": "Environment", "Value": "examples"}
         ]
 Parameters:
   VPCCidr:
     Type: String
     Default: '10.0.0.0/16'
     Description: 'CIDR block for the VPC.'
+  Name:
+    Type: String
+    Default: 'Example'
+    Description: 'Name of the stack or stack set.'

@@ -23,7 +23,7 @@ variable "capabilities" {
 }
 
 variable "disable_rollback" {
-  type        = string
+  type        = bool
   description = "(Optional) Set to true to disable rollback of the stack if stack creation failed. Conflicts with `on_failure`."
   default     = null
 }
@@ -169,11 +169,13 @@ variable "account_id" {
   default     = null
 }
 
-variable "stackset_instance_deployment_targets" {
+/*
+variable "organizational_unit_ids" {
   type        = list(string)
-  description = "(Optional) The AWS Organizations accounts to which StackSets deploys. StackSets doesn't deploy stack instances to the organization management account, even if the organization management account is in your organization or in an OU in your organization. Drift detection is not possible for this argument."
+  description = "(Optional) The organization root ID or organizational unit (OU) IDs to which StackSets deploys."
   default     = []
 }
+*/
 
 variable "parameter_overrides" {
   type        = map(string)
@@ -197,42 +199,4 @@ variable "stackset_instance_timeouts" {
   type        = map(string)
   description = "Configuration options defining how long it takes the stack to be created, updated, and deleted"
   default     = {}
-}
-
-
-## cloudformation type
-variable "cloudformation_type_execution_role_arn" {
-  type        = string
-  description = "(Optional) Amazon Resource Name (ARN) of the IAM Role for CloudFormation to assume when invoking the extension. If your extension calls AWS APIs in any of its handlers, you must create an IAM execution role that includes the necessary permissions to call those AWS APIs, and provision that execution role in your account. When CloudFormation needs to invoke the extension handler, CloudFormation assumes this execution role to create a temporary session token, which it then passes to the extension handler, thereby supplying your extension with the appropriate credentials."
-  default     = null
-}
-
-variable "cloudformation_type_logging_config" {
-  type        = map(string)
-  description = "(Optional) Configuration block containing logging configuration."
-  default     = {}
-}
-
-variable "cloudformation_type_schema_handler_package" {
-  type        = string
-  description = "(Required) URL to the S3 bucket containing the extension project package that contains the necessary files for the extension you want to register. Must begin with `s3://` or `https://`. For example, s3://example-bucket/example-object."
-  default     = ""
-}
-
-variable "cloudformation_registry_type" {
-  type        = string
-  description = "(Optional) CloudFormation Registry Type. For example, `RESOURCE` or `MODULE`."
-  default     = null
-}
-
-variable "cloudformation_type_name" {
-  type        = string
-  description = "(Optional) CloudFormation Type name. For example, `ExampleCompany::ExampleService::ExampleResource`."
-  default     = null
-}
-
-variable "create_cloudformation_type" {
-  type        = bool
-  description = "Choose whether to create this resource"
-  default     = false
 }

@@ -1,3 +1,8 @@
+variable "name" {
+  type        = string
+  description = "Stack name."
+  default     = "Example-stack"
+}
 variable "tags" {
   type        = map(string)
   description = "Tags to apply to the created resources"

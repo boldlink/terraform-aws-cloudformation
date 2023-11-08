@@ -26,7 +26,7 @@ Examples available [`here`](github.com/boldlink/terraform-aws-cloudformation/tre
 ```console
 module "minimum" {
   source  = "boldlink/cloudformation/aws"
-  version = "1.2.0"
+  version = "<insert_latest_version_here>"
   stack_name    = local.stack_name
   template_body = templatefile("template.yml", {})
   parameters = {
@@ -90,7 +90,7 @@ Parameters:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.15.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.24.0 |
 
 ## Modules
 
@@ -103,7 +103,6 @@ No modules.
 | [aws_cloudformation_stack.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
 | [aws_cloudformation_stack_set.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack_set) | resource |
 | [aws_cloudformation_stack_set_instance.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack_set_instance) | resource |
-| [aws_cloudformation_type.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_type) | resource |
 
 ## Inputs
 
@@ -111,14 +110,8 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | (Optional) Target AWS Account ID to create a Stack based on the StackSet. Defaults to current account. | `string` | `null` | no |
 | <a name="input_capabilities"></a> [capabilities](#input\_capabilities) | (Optional) A list of capabilities. Valid values: `CAPABILITY_IAM`, `CAPABILITY_NAMED_IAM`, or `CAPABILITY_AUTO_EXPAND` | `list(string)` | <pre>[<br>  "CAPABILITY_IAM"<br>]</pre> | no |
-| <a name="input_cloudformation_registry_type"></a> [cloudformation\_registry\_type](#input\_cloudformation\_registry\_type) | (Optional) CloudFormation Registry Type. For example, `RESOURCE` or `MODULE`. | `string` | `null` | no |
-| <a name="input_cloudformation_type_execution_role_arn"></a> [cloudformation\_type\_execution\_role\_arn](#input\_cloudformation\_type\_execution\_role\_arn) | (Optional) Amazon Resource Name (ARN) of the IAM Role for CloudFormation to assume when invoking the extension. If your extension calls AWS APIs in any of its handlers, you must create an IAM execution role that includes the necessary permissions to call those AWS APIs, and provision that execution role in your account. When CloudFormation needs to invoke the extension handler, CloudFormation assumes this execution role to create a temporary session token, which it then passes to the extension handler, thereby supplying your extension with the appropriate credentials. | `string` | `null` | no |
-| <a name="input_cloudformation_type_logging_config"></a> [cloudformation\_type\_logging\_config](#input\_cloudformation\_type\_logging\_config) | (Optional) Configuration block containing logging configuration. | `map(string)` | `{}` | no |
-| <a name="input_cloudformation_type_name"></a> [cloudformation\_type\_name](#input\_cloudformation\_type\_name) | (Optional) CloudFormation Type name. For example, `ExampleCompany::ExampleService::ExampleResource`. | `string` | `null` | no |
-| <a name="input_cloudformation_type_schema_handler_package"></a> [cloudformation\_type\_schema\_handler\_package](#input\_cloudformation\_type\_schema\_handler\_package) | (Required) URL to the S3 bucket containing the extension project package that contains the necessary files for the extension you want to register. Must begin with `s3://` or `https://`. For example, s3://example-bucket/example-object. | `string` | `""` | no |
-| <a name="input_create_cloudformation_type"></a> [create\_cloudformation\_type](#input\_create\_cloudformation\_type) | Choose whether to create this resource | `bool` | `false` | no |
 | <a name="input_create_stack_set_instance"></a> [create\_stack\_set\_instance](#input\_create\_stack\_set\_instance) | Choose whether to create this resource | `bool` | `false` | no |
-| <a name="input_disable_rollback"></a> [disable\_rollback](#input\_disable\_rollback) | (Optional) Set to true to disable rollback of the stack if stack creation failed. Conflicts with `on_failure`. | `string` | `null` | no |
+| <a name="input_disable_rollback"></a> [disable\_rollback](#input\_disable\_rollback) | (Optional) Set to true to disable rollback of the stack if stack creation failed. Conflicts with `on_failure`. | `bool` | `null` | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | (Optional) The ARN of an IAM role that AWS CloudFormation assumes to create the stack. If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials. | `string` | `null` | no |
 | <a name="input_instance_stackset_name"></a> [instance\_stackset\_name](#input\_instance\_stackset\_name) | (Required) Name of the StackSet. | `string` | `""` | no |
 | <a name="input_notification_arns"></a> [notification\_arns](#input\_notification\_arns) | (Optional) A list of SNS topic ARNs to publish stack related events. | `list(string)` | `[]` | no |
@@ -135,7 +128,6 @@ No modules.
 | <a name="input_stackset_capabilities"></a> [stackset\_capabilities](#input\_stackset\_capabilities) | (Optional) A list of capabilities. Valid values: `CAPABILITY_IAM`, `CAPABILITY_NAMED_IAM`, `CAPABILITY_AUTO_EXPAND`. | `list(string)` | <pre>[<br>  "CAPABILITY_IAM"<br>]</pre> | no |
 | <a name="input_stackset_description"></a> [stackset\_description](#input\_stackset\_description) | (Optional) Description of the StackSet. | `string` | `null` | no |
 | <a name="input_stackset_execution_role_name"></a> [stackset\_execution\_role\_name](#input\_stackset\_execution\_role\_name) | (Optional) Name of the IAM Role in all target accounts for StackSet operations. Defaults to `AWSCloudFormationStackSetExecutionRole` when using the `SELF_MANAGED` permission model. This should not be defined when using the `SERVICE_MANAGED` permission model. | `string` | `null` | no |
-| <a name="input_stackset_instance_deployment_targets"></a> [stackset\_instance\_deployment\_targets](#input\_stackset\_instance\_deployment\_targets) | (Optional) The AWS Organizations accounts to which StackSets deploys. StackSets doesn't deploy stack instances to the organization management account, even if the organization management account is in your organization or in an OU in your organization. Drift detection is not possible for this argument. | `list(string)` | `[]` | no |
 | <a name="input_stackset_instance_timeouts"></a> [stackset\_instance\_timeouts](#input\_stackset\_instance\_timeouts) | Configuration options defining how long it takes the stack to be created, updated, and deleted | `map(string)` | `{}` | no |
 | <a name="input_stackset_name"></a> [stackset\_name](#input\_stackset\_name) | (Required) Name of the StackSet. The name must be unique in the region where you create your StackSet. The name can contain only alphanumeric characters (case-sensitive) and hyphens. It must start with an alphabetic character and cannot be longer than 128 characters. | `string` | `""` | no |
 | <a name="input_stackset_parameters"></a> [stackset\_parameters](#input\_stackset\_parameters) | (Optional) Key-value map of input parameters for the StackSet template. All template parameters, including those with a `Default`, must be configured or ignored with `lifecycle` configuration block `ignore_changes` argument. All `NoEcho` template parameters must be ignored with the `lifecycle` configuration block `ignore_changes` argument. | `map(string)` | `{}` | no |
@@ -153,17 +145,6 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cloudformation_type_arn"></a> [cloudformation\_type\_arn](#output\_cloudformation\_type\_arn) | Optional) Amazon Resource Name (ARN) of the CloudFormation |
-| <a name="output_cloudformation_type_default_version_id"></a> [cloudformation\_type\_default\_version\_id](#output\_cloudformation\_type\_default\_version\_id) | Identifier of the CloudFormation Type default version. |
-| <a name="output_cloudformation_type_deprecated_status"></a> [cloudformation\_type\_deprecated\_status](#output\_cloudformation\_type\_deprecated\_status) | Deprecation status of the version. |
-| <a name="output_cloudformation_type_description"></a> [cloudformation\_type\_description](#output\_cloudformation\_type\_description) | Description of the version. |
-| <a name="output_cloudformation_type_documentation_url"></a> [cloudformation\_type\_documentation\_url](#output\_cloudformation\_type\_documentation\_url) | URL of the documentation for the CloudFormation Type. |
-| <a name="output_cloudformation_type_is_default_version"></a> [cloudformation\_type\_is\_default\_version](#output\_cloudformation\_type\_is\_default\_version) | Whether the CloudFormation Type version is the default version. |
-| <a name="output_cloudformation_type_provisioning_type"></a> [cloudformation\_type\_provisioning\_type](#output\_cloudformation\_type\_provisioning\_type) | Provisioning behavior of the CloudFormation Type. |
-| <a name="output_cloudformation_type_schema"></a> [cloudformation\_type\_schema](#output\_cloudformation\_type\_schema) | JSON document of the CloudFormation Type schema. |
-| <a name="output_cloudformation_type_source_url"></a> [cloudformation\_type\_source\_url](#output\_cloudformation\_type\_source\_url) | URL of the source code for the CloudFormation Type. |
-| <a name="output_cloudformation_type_version_id"></a> [cloudformation\_type\_version\_id](#output\_cloudformation\_type\_version\_id) | (Optional) Identifier of the CloudFormation Type version. |
-| <a name="output_cloudformation_type_visibility"></a> [cloudformation\_type\_visibility](#output\_cloudformation\_type\_visibility) | Scope of the CloudFormation Type. |
 | <a name="output_id"></a> [id](#output\_id) | A unique identifier of the stack. |
 | <a name="output_outputs"></a> [outputs](#output\_outputs) | A map of outputs from the stack. |
 | <a name="output_stackset_arn"></a> [stackset\_arn](#output\_stackset\_arn) | Amazon Resource Name (ARN) of the StackSet. |
