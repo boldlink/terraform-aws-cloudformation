@@ -90,7 +90,7 @@ Parameters:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.24.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.31.0 |
 
 ## Modules
 
@@ -111,7 +111,7 @@ No modules.
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | (Optional) Target AWS Account ID to create a Stack based on the StackSet. Defaults to current account. | `string` | `null` | no |
 | <a name="input_capabilities"></a> [capabilities](#input\_capabilities) | (Optional) A list of capabilities. Valid values: `CAPABILITY_IAM`, `CAPABILITY_NAMED_IAM`, or `CAPABILITY_AUTO_EXPAND` | `list(string)` | <pre>[<br>  "CAPABILITY_IAM"<br>]</pre> | no |
 | <a name="input_create_stack_set_instance"></a> [create\_stack\_set\_instance](#input\_create\_stack\_set\_instance) | Choose whether to create this resource | `bool` | `false` | no |
-| <a name="input_disable_rollback"></a> [disable\_rollback](#input\_disable\_rollback) | (Optional) Set to true to disable rollback of the stack if stack creation failed. Conflicts with `on_failure`. | `string` | `null` | no |
+| <a name="input_disable_rollback"></a> [disable\_rollback](#input\_disable\_rollback) | (Optional) Set to true to disable rollback of the stack if stack creation failed. Conflicts with `on_failure`. | `bool` | `null` | no |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | (Optional) The ARN of an IAM role that AWS CloudFormation assumes to create the stack. If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials. | `string` | `null` | no |
 | <a name="input_instance_stackset_name"></a> [instance\_stackset\_name](#input\_instance\_stackset\_name) | (Required) Name of the StackSet. | `string` | `""` | no |
 | <a name="input_notification_arns"></a> [notification\_arns](#input\_notification\_arns) | (Optional) A list of SNS topic ARNs to publish stack related events. | `list(string)` | `[]` | no |

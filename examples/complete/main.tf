@@ -154,8 +154,8 @@ module "stack_set_with_s3" {
   }
 
   stackset_template_url = "https://${module.cloudformation_s3_bucket.bucket_regional_domain_name}/template.yml"
-  tags                   = merge({ Name = "${var.name}set-with-s3" }, var.tags)
-  depends_on = [module.cloudformation_s3_bucket, null_resource.s3]
+  tags                  = merge({ Name = "${var.name}set-with-s3" }, var.tags)
+  depends_on            = [module.cloudformation_s3_bucket, null_resource.s3]
 }
 
 ######################

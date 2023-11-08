@@ -23,6 +23,7 @@
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.20.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >=2.4.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >=3.2.1 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.1.0 |
 
 ## Providers
 
@@ -31,6 +32,7 @@
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.24.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.4.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.1 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
 
 ## Modules
 
@@ -41,6 +43,7 @@
 | <a name="module_stack"></a> [stack](#module\_stack) | ./../../ | n/a |
 | <a name="module_stack_role"></a> [stack\_role](#module\_stack\_role) | boldlink/iam-role/aws | 1.1.1 |
 | <a name="module_stack_set"></a> [stack\_set](#module\_stack\_set) | ./../../ | n/a |
+| <a name="module_stack_set_with_s3"></a> [stack\_set\_with\_s3](#module\_stack\_set\_with\_s3) | ./../../ | n/a |
 | <a name="module_stack_with_s3"></a> [stack\_with\_s3](#module\_stack\_with\_s3) | ./../../ | n/a |
 | <a name="module_stackset_administration_role"></a> [stackset\_administration\_role](#module\_stackset\_administration\_role) | boldlink/iam-role/aws | 1.1.0 |
 | <a name="module_stackset_execution_role"></a> [stackset\_execution\_role](#module\_stackset\_execution\_role) | boldlink/iam-role/aws | 1.1.0 |
@@ -51,6 +54,7 @@
 | Name | Type |
 |------|------|
 | [null_resource.s3](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [random_string.bucket](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 | [aws_iam_policy_document.stack_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.stackset_administration_role_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.stackset_administration_role_execution_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
