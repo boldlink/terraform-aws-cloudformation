@@ -23,7 +23,7 @@ variable "capabilities" {
 }
 
 variable "disable_rollback" {
-  type        = string
+  type        = bool
   description = "(Optional) Set to true to disable rollback of the stack if stack creation failed. Conflicts with `on_failure`."
   default     = null
 }

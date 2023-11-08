@@ -6,11 +6,11 @@ resource "aws_cloudformation_stack" "main" {
   template_body      = var.template_body
   template_url       = var.template_url
   capabilities       = var.capabilities
-  disable_rollback   = var.on_failure == null ? var.disable_rollback : null
+  disable_rollback   = var.disable_rollback
   notification_arns  = var.notification_arns
   on_failure         = var.disable_rollback == null ? var.on_failure : null
   parameters         = var.parameters
-  policy_body        = var.policy_url == null ? var.policy_body : null
+  policy_body        = var.policy_body
   policy_url         = var.policy_body == null ? var.policy_url : null
   tags               = var.tags
   iam_role_arn       = var.iam_role_arn

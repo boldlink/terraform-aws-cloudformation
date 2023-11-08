@@ -45,10 +45,17 @@ module "stack" {
 ###############################################################################
 # Cloudformation stack with template url and policy url stored in an s3 bucket
 ###############################################################################
+resource "random_string" "bucket" {
+  length  = 5
+  special = false
+  upper   = false
+  numeric = false
+}
+
 module "cloudformation_s3_bucket" {
   source        = "boldlink/s3/aws"
   version       = "2.3.1"
-  bucket        = lower("${var.name}-bucket")
+  bucket        = lower("${var.name}-bucket-${random_string.bucket.result}")
   force_destroy = true
   tags          = merge({ Name = "${var.name}-bucket" }, var.tags)
 }
@@ -91,13 +98,31 @@ module "stackset_administration_role" {
   tags = merge({ Name = "${var.name}set" }, var.tags)
 }
 
+module "stackset_execution_role" {
+  source             = "boldlink/iam-role/aws"
+  version            = "1.1.0"
+  name               = "${var.name}set-execution-role"
+  assume_role_policy = data.aws_iam_policy_document.stackset_execution_role_assume_role_policy.json
+  policies = {
+    "${var.name}set-execution-policy" = {
+      policy = data.aws_iam_policy_document.stackset_execution_role_example_policy.json
+    }
+  }
+  tags = merge({ Name = "${var.name}set" }, var.tags)
+  depends_on = [
+    module.stackset_administration_role
+  ]
+}
+
 module "stack_set" {
   source                           = "./../../"
   stackset_administration_role_arn = module.stackset_administration_role.arn
   stackset_name                    = "${var.name}set"
+  stackset_description             = "Example stackset"
   stackset_execution_role_name     = "${var.name}set-execution-role"
   stackset_permission_model        = "SELF_MANAGED"
   stackset_call_as                 = "SELF"
+  stackset_capabilities            = ["CAPABILITY_IAM"]
   notification_arns                = [module.sns_topic.arn]
 
   stackset_parameters = {
@@ -115,26 +140,27 @@ module "stack_set" {
   ]
 }
 
+## Stackset with s3
+module "stack_set_with_s3" {
+  source                           = "./../../"
+  stackset_administration_role_arn = module.stackset_administration_role.arn
+  stackset_name                    = "${var.name}set-with-s3"
+  stackset_description             = "Example stackset with template in s3"
+  stackset_execution_role_name     = "${var.name}set-execution-role"
+  notification_arns                = [module.sns_topic.arn]
+
+  stackset_parameters = {
+    VPCCidr = "172.0.0.0/16"
+  }
+
+  stackset_template_url = "https://${module.cloudformation_s3_bucket.bucket_regional_domain_name}/template.yml"
+  tags                   = merge({ Name = "${var.name}set-with-s3" }, var.tags)
+  depends_on = [module.cloudformation_s3_bucket, null_resource.s3]
+}
+
 ######################
 # Stack set instance
 ######################
-module "stackset_execution_role" {
-  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
-  source             = "boldlink/iam-role/aws"
-  version            = "1.1.0"
-  name               = "${var.name}set-execution-role"
-  assume_role_policy = data.aws_iam_policy_document.stackset_execution_role_assume_role_policy.json
-  policies = {
-    "${var.name}set-execution-policy" = {
-      policy = data.aws_iam_policy_document.stackset_execution_role_example_policy.json
-    }
-  }
-  tags = merge({ Name = "${var.name}set" }, var.tags)
-  depends_on = [
-    module.stackset_administration_role
-  ]
-}
-
 module "stackset_instance" {
   #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
   source                    = "./../../"
