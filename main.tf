@@ -67,7 +67,4 @@ resource "aws_cloudformation_stack_set_instance" "main" {
     delete = lookup(var.stackset_instance_timeouts, "delete", "30m")
   }
 
-  lifecycle {
-    create_before_destroy = true
-  }
 }

@@ -1,5 +1,16 @@
+data "aws_region" "current" {}
+
 data "local_file" "json_file" {
   filename = "${path.module}/files/policy.json"
+}
+
+data "aws_iam_policy_document" "sns_topic" {
+  statement {
+    actions = ["sns:Publish"]
+    effect  = "Allow"
+    resources = [module.sns_topic.arn]
+  }
+  
 }
 
 data "aws_iam_policy_document" "stackset_administration_role_assume_role_policy" {
