@@ -12,12 +12,12 @@ module "sns_topic" {
 ########################################################################
 
 module "stack_role" {
-  source                = "boldlink/iam-role/aws"
-  version               = "1.1.1"
-  name                  = "${var.name}-role"
-  assume_role_policy    = data.aws_iam_policy_document.stack_assume_role_policy.json
-  managed_policy_arns   = ["arn:aws:iam::aws:policy/AmazonVPCFullAccess"]
-  policies =    {
+  source              = "boldlink/iam-role/aws"
+  version             = "1.1.1"
+  name                = "${var.name}-role"
+  assume_role_policy  = data.aws_iam_policy_document.stack_assume_role_policy.json
+  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonVPCFullAccess"]
+  policies = {
     "${var.name}-policy" = {
       policy = data.aws_iam_policy_document.sns_topic.json
       tags   = var.tags
@@ -46,7 +46,7 @@ module "stack" {
     update = "30m"
     delete = "30m"
   }
-  depends_on = [ module.stack_role ]
+  depends_on = [module.stack_role]
 }
 
 ###############################################################################

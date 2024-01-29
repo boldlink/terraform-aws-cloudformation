@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: stackset deployed to an organization unit
 
 ## [1.1.4] - 2024-01-29
-- fix: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
+- fix: CKV_AWS_124:Ensure that CloudFormation stacks are sending event notifications to an SNS topic
 
 ## [1.1.3] - 2023-11-06
 - added cloudformation stack example

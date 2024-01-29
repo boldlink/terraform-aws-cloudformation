@@ -6,11 +6,11 @@ data "local_file" "json_file" {
 
 data "aws_iam_policy_document" "sns_topic" {
   statement {
-    actions = ["sns:Publish"]
-    effect  = "Allow"
+    actions   = ["sns:Publish"]
+    effect    = "Allow"
     resources = [module.sns_topic.arn]
   }
-  
+
 }
 
 data "aws_iam_policy_document" "stackset_administration_role_assume_role_policy" {
