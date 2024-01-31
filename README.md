@@ -90,7 +90,7 @@ Parameters:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.24.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.34.0 |
 
 ## Modules
 
@@ -201,4 +201,4 @@ make cleanstatefiles
 ```
 
 
-#### BOLDLink-SIG 2022
+#### BOLDLink-SIG 2024

@@ -12,23 +12,29 @@ module "sns_topic" {
 ########################################################################
 
 module "stack_role" {
-  source                = "boldlink/iam-role/aws"
-  version               = "1.1.1"
-  name                  = "${var.name}-role"
-  assume_role_policy    = data.aws_iam_policy_document.stack_assume_role_policy.json
-  managed_policy_arns   = ["arn:aws:iam::aws:policy/AmazonVPCFullAccess"]
+  source              = "boldlink/iam-role/aws"
+  version             = "1.1.1"
+  name                = "${var.name}-role"
+  assume_role_policy  = data.aws_iam_policy_document.stack_assume_role_policy.json
+  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonVPCFullAccess"]
+  policies = {
+    "${var.name}-policy" = {
+      policy = data.aws_iam_policy_document.sns_topic.json
+      tags   = var.tags
+    }
+  }
   force_detach_policies = true
   tags                  = merge({ Name = "${var.name}-role" }, var.tags)
 }
 
 module "stack" {
-  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
-  source       = "./../../"
-  stack_name   = var.name
-  capabilities = ["CAPABILITY_IAM"]
-  on_failure   = "ROLLBACK"
-  tags         = merge({ Name = var.name }, var.tags)
-  iam_role_arn = module.stack_role.arn
+  source            = "./../../"
+  stack_name        = var.name
+  capabilities      = ["CAPABILITY_IAM"]
+  on_failure        = "ROLLBACK"
+  tags              = merge({ Name = var.name }, var.tags)
+  iam_role_arn      = module.stack_role.arn
+  notification_arns = [module.sns_topic.arn]
   parameters = {
     VPCCidr = "192.168.0.0/16"
     Name    = var.name
@@ -40,6 +46,7 @@ module "stack" {
     update = "30m"
     delete = "30m"
   }
+  depends_on = [module.stack_role]
 }
 
 ###############################################################################
@@ -119,7 +126,7 @@ module "stack_set" {
   stackset_administration_role_arn = module.stackset_administration_role.arn
   stackset_name                    = "${var.name}set"
   stackset_description             = "Example stackset"
-  stackset_execution_role_name     = "${var.name}set-execution-role"
+  stackset_execution_role_name     = module.stackset_execution_role.name
   stackset_permission_model        = "SELF_MANAGED"
   stackset_call_as                 = "SELF"
   stackset_capabilities            = ["CAPABILITY_IAM"]
@@ -127,6 +134,8 @@ module "stack_set" {
 
   stackset_parameters = {
     VPCCidr = "172.0.0.0/16"
+    Name    = "${var.name}set"
+
   }
 
   stackset_template_body = templatefile("${path.module}/files/template.yml", {})
@@ -151,6 +160,7 @@ module "stack_set_with_s3" {
 
   stackset_parameters = {
     VPCCidr = "172.0.0.0/16"
+    Name    = "${var.name}set-with-s3"
   }
 
   stackset_template_url = "https://${module.cloudformation_s3_bucket.bucket_regional_domain_name}/template.yml"
@@ -162,9 +172,9 @@ module "stack_set_with_s3" {
 # Stack set instance
 ######################
 module "stackset_instance" {
-  #checkov:skip=CKV_AWS_124: "Ensure that CloudFormation stacks are sending event notifications to an SNS topic"
   source                    = "./../../"
-  region                    = "eu-west-2"
+  region                    = data.aws_region.current.name
+  notification_arns         = [module.sns_topic.arn]
   create_stack_set_instance = true
   instance_stackset_name    = module.stack_set.stackset_id[0]
   retain_stack              = false
